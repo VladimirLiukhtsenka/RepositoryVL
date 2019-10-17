@@ -6,12 +6,9 @@ package by.epamtc.BasicsOfSoftwareCodeDevelopment.Branches;
  */
 public class Br3 {
     public static void main(String[] args) {
-        double x1 = -2;
-        double y1 = 5;
-        double x2 = 4;
-        double y2 = 3;
-        double x3 = 16;
-        double y3 = -1;
+        double x1 = -2, y1 = 5;
+        double x2 = 4, y2 = 3;
+        double x3 = 16, y3 = -1;
         if ((x2 - x1) * (y3 - y1) == (x3 - x1) * (y2 - y1)) {
             System.out.println("Точки лежат на одной прямой");
         } else System.out.println("Точки не лежат на одной прямой");

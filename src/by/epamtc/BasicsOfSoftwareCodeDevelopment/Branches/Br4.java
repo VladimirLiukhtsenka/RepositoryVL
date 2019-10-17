@@ -6,14 +6,11 @@ package by.epamtc.BasicsOfSoftwareCodeDevelopment.Branches;
  */
 public class Br4 {
     public static void main(String[] args) {
-        double A = 30;
-        double B = 7;
-        double x = 6.5;
-        double y = 12.5;
-        double z = 25;
-        if ((x < A && y < B || x < B && y < A)
-                || (x < A && z < B || (x < B && z < A))
-                || (y < A && z < B || y < B && z < A)) {
+        double A = 30, B = 7;
+        double x = 6.5, y = 12.5, z = 25;
+        if (((x < A && y < B) || (x < B && y < A))
+                || ((x < A && z < B) || (x < B && z < A))
+                || ((y < A && z < B) || (y < B && z < A))) {
             System.out.println("Пройдет");
         } else System.out.println("Не пройдет");
     }
