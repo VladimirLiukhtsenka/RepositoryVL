@@ -10,5 +10,6 @@ public class LP4 {
         nnn = (int) Math.floor(R);
         ddd = (int) ((R - nnn) * 1000);
         System.out.println(ddd + "." + nnn);
+
     }
 }
