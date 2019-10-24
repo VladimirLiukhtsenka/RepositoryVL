@@ -28,16 +28,5 @@ public class AOA1 {
             }
             System.out.println();
         }
-        System.out.println();
-        System.out.println(Arrays.deepToString(matrix));
-        System.out.println(Arrays.toString(matrix[1]));
-        /*
-        int f = matrix[1][0];
-        System.out.println(f);
-        int l = matrix[1][matrix[0].length-1];
-        System.out.println(l);
-
-         */
-
     }
 }

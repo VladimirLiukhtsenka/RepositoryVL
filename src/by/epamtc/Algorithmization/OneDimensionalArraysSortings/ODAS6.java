@@ -15,5 +15,19 @@ public class ODAS6 {
             sequence[i] = (int) (Math.random() * 21);
         }
         System.out.println(Arrays.toString(sequence));
+        int gap = sequence.length / 2;
+        while (gap >= 1) {
+            for (int right = 0; right < sequence.length; right++) {
+                for (int c = right - gap; c >= 0; c -= gap) {
+                    if (sequence[c] > sequence[c + gap]) {
+                        int temp = sequence[c];
+                        sequence[c] = sequence[c + gap];
+                        sequence[c + gap] = temp;
+                    }
+                }
+            }
+            gap = gap / 2;
+        }
+        System.out.println(Arrays.toString(sequence));
     }
 }
