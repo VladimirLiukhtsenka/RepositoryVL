@@ -48,7 +48,7 @@ public class RE1 {
                 //в каждом предложении отсортировать слова по длине
             } else if (ans == 2) {
                 SortSentenses(textClass.text);
-                //отсортировать лексемы в предложении по убыванию количества вхождений заданного символа
+                //отсортировать лексемы в предложении по убыванию количества вхождений заданного символа и по алфавиту
             } else if (ans == 3) {
                 SortLexemeInSent(textClass.text);
             }
@@ -110,7 +110,7 @@ public class RE1 {
             System.out.println(paragraph);
         }
     }
-    //Сортировка слов по длинне
+    //Сортировка слов по длине
     private static void SortWordsBylenths(String s) {
         String[] words = {};
         Pattern pattern = Pattern.compile("[а-яА-яЁё]+");
