@@ -1,7 +1,5 @@
 package by.epamtc.Strings.RegularExpressions;
 
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
-
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -37,26 +35,35 @@ public class RE1 {
 
     public static void main(String[] args) {
         RE1 textClass = new RE1();
+        Scanner sc = new Scanner(System.in);
         System.out.println("Введите '1' если хотите отсортировать абзацы по количеству предложений. \n" +
                 "Введите '2' если хотите в каждом предложении отсортировать слова по длине. \n" +
                 "Введите '3' если хотите отсортировать лексемы в предложении по убыванию количества вхождений заданного символа. \n" +
                 "Введите '0' если хотите завершить работу");
-        Scanner sc = new Scanner(System.in);
         int ans = sc.nextInt();
-        if (ans == 1) {
-            SortParagraphs(textClass.text);
-        }
-        else if (ans==2){
-            SortSentensec(textClass.text);
-        }
-        else if (ans==3){
-
+        while (ans != 0) {
+            if (ans == 1) {
+                //отсортировать абзацы по количеству предложений
+                SortParagraphs(textClass.text);
+                //в каждом предложении отсортировать слова по длине
+            } else if (ans == 2) {
+                SortSentenses(textClass.text);
+                //отсортировать лексемы в предложении по убыванию количества вхождений заданного символа
+            } else if (ans == 3) {
+                SortLexemeInSent(textClass.text);
+            }
+            System.out.println();
+            System.out.println("Введите '1' если хотите отсортировать абзацы по количеству предложений. \n" +
+                    "Введите '2' если хотите в каждом предложении отсортировать слова по длине. \n" +
+                    "Введите '3' если хотите отсортировать лексемы в предложении по убыванию количества вхождений заданного символа. \n" +
+                    "Введите '0' если хотите завершить работу");
+            ans = sc.nextInt();
         }
     }
-
+    //Раздлеление текста на предложения
     private static String[] SeparationOfSentences(String s) {
         String[] sents = {};
-        Pattern pattern = Pattern.compile("[^\\.\\?\\!]+");
+        Pattern pattern = Pattern.compile("[^.?!]+");
         Matcher matcher = pattern.matcher(s);
         while (matcher.find()) {
             String sentence = matcher.group();
@@ -66,7 +73,7 @@ public class RE1 {
         }
         return sents;
     }
-
+    //Раздлеление текста на абзацы
     private static String[] SeparationOfParagraphs(String s) {
         String[] parags = {};
         Pattern pattern = Pattern.compile("[^\n]+");
@@ -79,30 +86,32 @@ public class RE1 {
         }
         return parags;
     }
-    private static void SortParagraphs (String t){
+    //Сортировка абзацев по количеству предложений
+    private static void SortParagraphs(String t) {
         String[] Paragraphs = SeparationOfParagraphs(t);
-        int [] quantitySentences = new int[Paragraphs.length];
+        int[] quantitySentences = new int[Paragraphs.length];
         for (int i = 0; i < Paragraphs.length; i++) {
-            quantitySentences[i]= SeparationOfSentences(Paragraphs[i]).length;
+            quantitySentences[i] = SeparationOfSentences(Paragraphs[i]).length;
         }
-        for (int i = quantitySentences.length-1; i >0; i--) {
+        for (int i = quantitySentences.length - 1; i > 0; i--) {
             for (int j = 0; j < i; j++) {
-                if (quantitySentences[j]>quantitySentences[j+1]){
-                    String temps = Paragraphs [j];
-                    Paragraphs [j] = Paragraphs [j+1];
-                    Paragraphs [j+1] = temps;
+                if (quantitySentences[j] > quantitySentences[j + 1]) {
+                    String temps = Paragraphs[j];
+                    Paragraphs[j] = Paragraphs[j + 1];
+                    Paragraphs[j + 1] = temps;
                     int temp = quantitySentences[j];
-                    quantitySentences[j]=quantitySentences[j+1];
-                    quantitySentences[j+1] = temp;
+                    quantitySentences[j] = quantitySentences[j + 1];
+                    quantitySentences[j + 1] = temp;
                 }
             }
         }
-        for (int i = 0; i < Paragraphs.length; i++) {
-            System.out.println("Количество предложений: "+SeparationOfSentences(Paragraphs[i]).length);
-            System.out.println(Paragraphs[i]);
+        for (String paragraph : Paragraphs) {
+            System.out.println("Количество предложений: " + SeparationOfSentences(paragraph).length);
+            System.out.println(paragraph);
         }
     }
-    private static String SortWordsBylenths (String s){
+    //Сортировка слов по длинне
+    private static void SortWordsBylenths(String s) {
         String[] words = {};
         Pattern pattern = Pattern.compile("[а-яА-яЁё]+");
         Matcher matcher = pattern.matcher(s);
@@ -112,33 +121,101 @@ public class RE1 {
             words = Arrays.copyOf(words, last + 1);
             words[last] = w;
         }
-        for (int i = words.length-1; i >0; i--) {
-            for (int j = 0; j <i ; j++) {
-                if (words[j].length()>words[j+1].length()){
+        for (int i = words.length - 1; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                if (words[j].length() > words[j + 1].length()) {
                     String temp = words[j];
-                    words[j]=words[j+1];
-                    words[j+1]=temp;
+                    words[j] = words[j + 1];
+                    words[j + 1] = temp;
                 }
             }
         }
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < words.length; i++) {
-            sb.append(words[i]).append(" ");
+        for (String word : words) {
+            sb.append(word).append(" ");
         }
         System.out.println(sb.toString());
-      return sb.toString();
     }
-    private static void SortSentensec (String s){
+    //В каждом предложении сортировка слов по длине
+    private static void SortSentenses(String s) {
         String[] parag = SeparationOfParagraphs(s);
         for (int i = 0; i < parag.length; i++) {
             String[] sentences = SeparationOfSentences(parag[i]);
             parag[i] = "";
-            for (int j = 0; j < sentences.length; j++) {
-                SortWordsBylenths(sentences[j]);
+            for (String sentence : sentences) {
+                SortWordsBylenths(sentence);
             }
         }
     }
- //   private static String SortLexeme (String s){
+    // Сортировка лексем по входищим символом и по алфавиту
+    private static String SortLexeme(String s) {
+        String[] words = {};
+        Pattern pattern = Pattern.compile("[а-яА-яЁё]+");
+        Matcher matcher = pattern.matcher(s);
+        while (matcher.find()) {
+            String w = matcher.group();
+            int last = words.length;
+            words = Arrays.copyOf(words, last + 1);
+            words[last] = w;
+        }
+        int[] symbolInWordCount = new int[words.length];
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Введите символ: ");
+        String symbol = scan.next();
+        for (int i = 0; i < words.length; i++) {
+            int countSym = 0;
+            int position = 0;
+            while (position != -1) {
+                position = words[i].indexOf(symbol, position);
+                if (position != -1) {
+                    position++;
+                    countSym++;
+                }
+            }
+            symbolInWordCount[i] = countSym;
+        }
 
-   // }
+        for (int i = words.length - 1; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                if (symbolInWordCount[j] < symbolInWordCount[j + 1]) {
+                    int temp = symbolInWordCount[j];
+                    symbolInWordCount[j] = symbolInWordCount[j + 1];
+                    symbolInWordCount[j + 1] = temp;
+                    String tempS = words[j];
+                    words[j] = words[j + 1];
+                    words[j + 1] = tempS;
+                }
+            }
+        }
+
+        for (int i = words.length - 1; i > 0; i--) {
+            for (int j = 0; j < i; j++) {
+                if (symbolInWordCount[j] == symbolInWordCount[j + 1]) {
+                    if (words[j].compareToIgnoreCase(words[j + 1]) > 0) {
+                        String tempS = words[j];
+                        words[j] = words[j + 1];
+                        words[j + 1] = tempS;
+                    }
+                }
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (String word : words) {
+            sb.append(word).append(" ");
+        }
+        return sb.toString();
+    }
+    //Сортировка предложения по входищим символом и по алфавиту
+    private static void SortLexemeInSent(String s) {
+        String[] parag = SeparationOfParagraphs(s);
+        int finishP = parag.length - 1;
+        System.out.println("Введите номер абзаца от 0 до " + finishP + " :");
+        Scanner sc = new Scanner(System.in);
+        int paragnum = sc.nextInt();
+        String[] sentences = SeparationOfSentences(parag[paragnum]);
+        int finishS = sentences.length - 1;
+        System.out.println("Введите номер предложения от 0 до " + finishS + " :");
+        int sentnum = sc.nextInt();
+        System.out.println(SortLexeme(sentences[sentnum]));
+    }
 }
