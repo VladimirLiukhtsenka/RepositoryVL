@@ -5,8 +5,8 @@ public class Test1 {
     private double b;
 
     public Test1() {
-        a = 0;
-        b = 0;
+       this.a = 0;
+       this.b = 0;
     }
 
     public Test1(double A, double B) {
