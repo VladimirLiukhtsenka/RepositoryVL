@@ -1,6 +1,7 @@
 package by.epamtc.ProgrammingWithClasses.SimplestClassesAndObjects.SCAO3;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Student {
     private String name;
@@ -44,5 +45,22 @@ public class Student {
                 ", groupNumber=" + groupNumber +
                 ", marks=" + Arrays.toString(marks) +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return groupNumber == student.groupNumber &&
+                Objects.equals(name, student.name) &&
+                Arrays.equals(marks, student.marks);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(name, groupNumber);
+        result = 31 * result + Arrays.hashCode(marks);
+        return result;
     }
 }

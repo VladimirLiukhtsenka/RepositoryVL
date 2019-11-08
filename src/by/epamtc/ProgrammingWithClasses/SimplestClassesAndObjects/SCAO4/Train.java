@@ -1,6 +1,7 @@
 package by.epamtc.ProgrammingWithClasses.SimplestClassesAndObjects.SCAO4;
 
 import java.time.LocalTime;
+import java.util.Objects;
 
 
 public class Train {
@@ -46,5 +47,20 @@ public class Train {
                 ", trainNumber=" + trainNumber +
                 ", departureTime=" + departureTime +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Train train = (Train) o;
+        return trainNumber == train.trainNumber &&
+                Objects.equals(destinationName, train.destinationName) &&
+                Objects.equals(departureTime, train.departureTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(destinationName, trainNumber, departureTime);
     }
 }

@@ -1,5 +1,7 @@
 package by.epamtc.ProgrammingWithClasses.SimplestClassesAndObjects.SCAO6;
 
+import java.util.Objects;
+
 public class Time {
     private int hour;
     private int minute;
@@ -53,5 +55,20 @@ public class Time {
     @Override
     public String toString() {
         return "hour: " + hour + " minute: " + minute + " second: " + second;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Time time = (Time) o;
+        return hour == time.hour &&
+                minute == time.minute &&
+                second == time.second;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(hour, minute, second);
     }
 }

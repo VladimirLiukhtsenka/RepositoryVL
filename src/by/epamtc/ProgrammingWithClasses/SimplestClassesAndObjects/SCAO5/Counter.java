@@ -1,5 +1,7 @@
 package by.epamtc.ProgrammingWithClasses.SimplestClassesAndObjects.SCAO5;
 
+import java.util.Objects;
+
 public class Counter {
     private int minValue;
     private int maxValue;
@@ -53,5 +55,20 @@ public class Counter {
                 ", maxValue=" + maxValue +
                 ", presentValue=" + presentValue +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Counter counter = (Counter) o;
+        return minValue == counter.minValue &&
+                maxValue == counter.maxValue &&
+                presentValue == counter.presentValue;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(minValue, maxValue, presentValue);
     }
 }
